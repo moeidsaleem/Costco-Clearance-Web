@@ -18,6 +18,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SharedModule } from './shared/shared.module';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { LayoutModule } from './layout/layout.module'
 
 
 registerLocaleData(en);
@@ -38,8 +40,10 @@ registerLocaleData(en);
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    SharedModule
-
+    AngularFireAuthGuardModule,
+    SharedModule,
+    LayoutModule
+    
     
     
 
