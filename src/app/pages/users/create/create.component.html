@@ -1,0 +1,132 @@
+
+    <nz-steps [nzCurrent]="current">
+      <nz-step *ngFor="let x of tabs"  [nzTitle]="x.title"  [nzIcon]="x.icon" ></nz-step>
+
+
+    </nz-steps>
+
+    <div class="steps-content">
+
+        <div class="First-content" *ngIf="current == 0">
+            <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>Username</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                    <input nz-input formControlName="userName" placeholder="async validate try to write JasonWood" />
+                    <ng-template #userErrorTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Please input your username!
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('duplicated')">
+                        The username is redundant!
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                    <input nz-input formControlName="email" placeholder="email" type="email" />
+                    <ng-template #emailErrorTpl let-control>
+                      <ng-container *ngIf="control.hasError('email')">
+                        The input is not valid E-mail!
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Please input your E-mail!
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
+                  <div>
+                    <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your password!">
+                      <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" />
+                    </nz-form-control>
+                  </div>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>Confirm Password</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                    <input nz-input type="password" formControlName="confirm" placeholder="confirm your password" />
+                    <ng-template #passwordErrorTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Please confirm your password!
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('confirm')">
+                        Password is inconsistent!
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
+                    <textarea formControlName="comment" nz-input rows="2" placeholder="write any thing"></textarea>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control [nzOffset]="7" [nzSpan]="12">
+                    <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+                    <button nz-button (click)="resetForm($event)">Reset</button>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+        </div>
+        <div class="Second-content" *ngIf="current == 1">
+              <nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="Select Type" [(ngModel)]="selectedUserType" (ngModelChange)="handleEvent($event)">
+                  <nz-option nzCustomContent  *ngFor="let x of userTypes | async" [nzLabel]="x.title" [nzValue]="x.value">
+                      <i nz-icon nzType="windows"></i>
+                       {{x?.title }}
+                    </nz-option >
+                  </nz-select>
+    
+                  <nz-select style="width: 200px;" *ngIf="selectedUserType == 'staff' &&  roles" nzShowSearch nzAllowClear nzPlaceHolder="Select Type" [(ngModel)]="selectedRole" (ngModelChange)="handleEvent($event)">
+                      <nz-option nzCustomContent  *ngFor="let x of roles | async" [nzLabel]="x.title" [nzValue]="x.value">
+                          <i nz-icon nzType="windows"></i>
+                           {{x?.title }}
+                        </nz-option >
+                      </nz-select>
+          
+          
+        </div>
+   
+        <div class="Third-content" *ngIf="current == 2">
+
+            <nz-input-group nzCompact *ngIf="!otp"> 
+                <nz-select [ngModel]="'Option1'">
+                  <nz-option [nzLabel]="'+971'" [nzValue]="'Option1'"></nz-option>
+                  <nz-option [nzLabel]="'+92'" [nzValue]="'Option2'"></nz-option>
+                  <nz-option [nzLabel]="'+91'" [nzValue]="'Option2'"></nz-option>
+                  <nz-option [nzLabel]="'+90'" [nzValue]="'Option2'"></nz-option>
+                  <nz-option [nzLabel]="'+1'" [nzValue]="'Option2'"></nz-option>
+                  <nz-option [nzLabel]="'+2'" [nzValue]="'Option2'"></nz-option>
+                </nz-select>
+                <input type="tel" nz-input [ngModel]="''" style="width:50%;" nz-placeholder="Mobile Number" />
+              </nz-input-group>
+              <br />
+              <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+                  <span>Validate </span>
+                </button>
+        </div>
+
+        <div class="Fourth-content" *ngIf="current == 3">
+            <h2>Fourth</h2>
+          </div>
+ 
+
+    </div>
+
+    <div class="steps-action" >
+      <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+        <span>Previous</span>
+      </button>
+      <button nz-button nzType="default" (click)="next()" *ngIf="current < tabs.length-1">
+        <span>Next</span>
+      </button>
+      <button nz-button nzType="primary" (click)="done()" *ngIf="current === tabs.length-1">
+        <span>Done</span>
+      </button>
+    </div>
+  
+ 
