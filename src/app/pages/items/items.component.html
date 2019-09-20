@@ -1,0 +1,26 @@
+
+<nz-page-header (nzBack)="goBack()" nzBackIcon>
+    <nz-page-header-title>Items</nz-page-header-title>
+    <nz-page-header-subtitle>{{router.url}}</nz-page-header-subtitle>
+ 
+    <nz-page-header-extra>
+   
+        <button nz-button nzType="primary" (click)="goAdd()" *ngIf="router.url == '/items/all'">Add</button>
+        <button nz-button nzType="danger" routerLink="/items/all" *ngIf="router.url == '/items/add'">cancel</button>
+      </nz-page-header-extra>
+
+    <nz-page-header-footer>
+    
+    </nz-page-header-footer>
+  </nz-page-header>
+    <!-- <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+      <nz-card-meta nzTitle="Europe Street beat" nzDescription="www.instagram.com"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+   -->
+
+
+
+   <router-outlet></router-outlet>

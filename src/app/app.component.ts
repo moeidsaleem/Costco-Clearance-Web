@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './providers/api/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { ApiService } from './providers/api/api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private api:ApiService){}
+  constructor(private api:ApiService, private router:Router){}
   
   isCollapsed = false;
   userStatus = this.api.userStatus;
@@ -16,6 +17,11 @@ export class AppComponent implements OnInit {
     this.api.userChanges();
     this.api.userStatusChanges.subscribe(x=> this.userStatus = x)
     console.log(this.userStatus)
+  }
+
+
+  goLogin(){
+    this.router.navigate(['/login'])
   }
 
 

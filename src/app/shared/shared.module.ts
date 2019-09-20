@@ -13,11 +13,12 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzDescriptionsModule, NzTagModule, NzTabsModule, NzStepsModule, NzCheckboxModule } from 'ng-zorro-antd';
+import { NzDescriptionsModule, NzTagModule, NzTabsModule, NzStepsModule, NzCheckboxModule, NzListModule, NzGridModule } from 'ng-zorro-antd';
 
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 
 
 @NgModule({
@@ -42,7 +43,11 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
     NzStepsModule,
     NzSelectModule,
     NzInputNumberModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    NzListModule,
+    NzStatisticModule,
+    NzGridModule
+
   ]
 })
 export class SharedModule { }

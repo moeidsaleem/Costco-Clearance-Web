@@ -21,6 +21,11 @@ export class ApiService {
   }
 
 
+  selectedItem;
+
+
+
+
 
   public currentUser: any;
   public userStatus: string;
@@ -42,9 +47,10 @@ login(email, password){
        this.currentUser = response.data();
        this.setUserStatus(this.currentUser); 
        if(response.data().role !== "admin"){
-         this.router.navigate(['/'])
+         this.router.navigate(['/login']);
+         alert('Sorry! Your Profile does not have the permissiont to access the Panel')
        }else{
-         this.router.navigate(['/admin'])
+         this.router.navigate(['/items/approvals'])
        }
      })
    })
@@ -93,12 +99,16 @@ userChanges(){
           this.currentUser = userRef.data();
 
           this.setUserStatus(this.currentUser);
-          console.log('user-status', this.userStatus);
+          console.log('user status ', this.currentUser)
+          console.log('user-status- use rmil gya', userRef.data());
 
           if(userRef.data().role !== "admin"){
-            this.ngZone.run(() => this.router.navigate(['/']))
+            this.ngZone.run(() => this.router.navigate(['/login']))
+            console.log('login chala')
           }else{
             this.ngZone.run(() => this.router.navigate(['/dashboard']) )
+            console.log('dashboard chala')
+
           }
         })
       })
@@ -123,6 +133,51 @@ getUserTypes(){
 getRoles(){
   return this.afs.collection('roles').valueChanges()
 }
+
+
+
+getUsers(){
+  return this.afs.collection('users').valueChanges()
+}
+
+
+
+
+/* ITEMS */
+getItems(){
+return  this.afs.collection('items').snapshotChanges();
+}
+
+getStatusItems(status = 'pending'){
+
+this.afs.collection("cities").get().subscribe(function(querySnapshot) {      
+  console.log(querySnapshot.size); 
+});
+  //status == 'disabled' - 'pending' - 'active'
+  return  this.afs.collection('items', ref=> ref.where('status', '==', status)).snapshotChanges();
+  }
+
+
+getSingeItem(id){
+return this.afs.doc('items/'+id).valueChanges();
+
+
+}
+addItem(data){
+  console.log('data', data)
+  data.status = 'pending';
+  data.location = ''
+
+  return this.afs.collection<any>('items').add(data)
+}
+deleteItem(id){
+  return this.afs.doc('items/'+id).delete();
+}
+updateItem(id, data){
+  return this.afs.doc('items/'+id).update(data);
+}
+
+
 
 
 

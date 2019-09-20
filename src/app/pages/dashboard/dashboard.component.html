@@ -1,1 +1,13 @@
-<p>dashboard works!</p>
+<nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="12">
+                <nz-statistic [nzValue]="totalActiveItems | number" [nzTitle]="'Active Items'"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="totalPendingItems | number" [nzTitle]="'Pending Items'"></nz-statistic>
+                  </nz-col>
+                     
+        <nz-col [nzSpan]="12">
+                <nz-statistic [nzValue]="users | number: '1.0-2'" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
+              </nz-col>
+             
+      </nz-row>

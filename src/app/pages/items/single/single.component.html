@@ -1,0 +1,47 @@
+
+<nz-page-header >
+        <nz-page-header-title>{{item.title}}</nz-page-header-title>
+        <nz-page-header-subtitle>----</nz-page-header-subtitle>
+        <nz-page-header-tags>
+            <nz-tag [nzColor]="'yellow'" *ngIf="item.status == 'pending'">{{item.status}}</nz-tag>
+            <nz-tag [nzColor]="'danger'" *ngIf="item.status == 'disabled'">{{item.status}}</nz-tag>
+            <nz-tag [nzColor]="'green'" *ngIf="item.status == 'active'">{{item.status}}</nz-tag>
+          </nz-page-header-tags>
+        <nz-page-header-extra>
+          <!-- <button nz-button>Edit</button> -->
+          <button nz-button nzType="danger" (click)="delete()">Delete</button>
+        </nz-page-header-extra>
+        <nz-page-header-content>
+          <div class="wrap">
+            <div nz-row class="content padding">
+              <nz-descriptions [nzColumn]="2">
+                <nz-descriptions-item nzTitle="Created By" [nzSpan]="1">{{item?.userName}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Item ID" [nzSpan]="1"><a>{{item?.itemId}}</a></nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Price" [nzSpan]="1">{{item?.price | currency }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Creation Time" [nzSpan]="1">{{item.timestamp}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Photo" [nzSpan]="1">
+                  <img src="https://herreroandsons.com/wp-content/uploads/2018/03/placeholder.png" alt="" style="width:80px;height:80px">
+
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Location" [nzSpan]="2">
+                 {{item?.location}}
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Description" [nzSpan]="2">
+                    {{item?.description}}
+                  </nz-descriptions-item>
+              </nz-descriptions>
+            </div>
+            <div nz-row class="extra-content">
+              <div nz-col nzSpan="12">
+                <span class="label">Status</span>
+                <p class="detail">{{item.status}}</p>
+              </div>
+              <div nz-col nzSpan="12">
+                <span class="label"> Price</span>
+                <p class="detail">{{item?.price | currency }}</p>
+              </div>
+            </div>
+          </div>
+        </nz-page-header-content>
+     
+      </nz-page-header>

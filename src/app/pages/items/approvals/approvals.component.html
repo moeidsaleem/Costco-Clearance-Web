@@ -1,0 +1,83 @@
+
+  <nz-tabset [nzSelectedIndex]="0">
+        <nz-tab nzTitle="List">
+  
+  
+            <nz-table #filterTable [nzData]="listOfDisplayData">
+                <thead (nzSortChange)="sort($event)" nzSingleSort>
+                  <tr>
+                    <th>ID</th>
+                    <th >Photo</th>
+  
+                    <th
+                      nzShowSort
+                      nzSortKey="title"
+                 
+                    >
+                      Title
+                    </th>
+                    <th nzShowSort nzSortKey="price">Price</th>
+                    <th
+                      nzShowSort
+                      nzSortKey="address"
+                   
+                    >
+                      Location
+                    </th>
+                    <th>User</th>
+                    <th>Change Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of data" (click)="goSingle(data)">
+                    <td>id</td>
+                    <td>
+                    <img [src]="data.photo" alt="" class="img-thumbnail" style="width:80px;height:80px">
+                    </td>
+                    <td>{{ data.title }}</td>
+                    <td>{{ data.price }}</td>
+                    <td>{{ data.location }}</td>
+                    <td>Moeid Saleem</td>
+                    <td>
+                        <span>
+                                <nz-tag [nzColor]="'green'" (click)="approve()" >Approve</nz-tag>
+                            <nz-tag [nzColor]="'red'" (click)="cancel()" >Cancel</nz-tag>
+                            <!-- <nz-tag [nzColor]="'yellow'">Pending</nz-tag> -->
+                        </span>
+                    </td> 
+                  </tr>
+                </tbody>
+              </nz-table>
+  
+  
+        </nz-tab>
+        <nz-tab nzTitle="Grid">
+  
+  
+  
+            <nz-list [nzDataSource]="data" [nzRenderItem]="item" [nzGrid]="{ gutter: 16, span: 6 }">
+                <ng-template #item let-item>
+                  <nz-list-item [nzContent]="nzContent">
+                    <ng-template #nzContent>
+                      
+                      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+                              <span style="font-size: smaller;font-weight: bolder">
+                                  #{{item.itemId }}</span>
+          
+                              <nz-card-meta [nzTitle]="item.title" nzSubt [nzDescription]="item.description"></nz-card-meta>
+                              <span class="blood">{{item.price | currency}}</span>
+          
+                          </nz-card>
+                    </ng-template>
+                  </nz-list-item>
+                </ng-template>
+              </nz-list>
+          
+  
+        </nz-tab>
+      </nz-tabset>
+    
+        <ng-template #coverTemplate> 
+                <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+            <!-- <span>{coverTemplate.price}}</span> -->
+            </ng-template>

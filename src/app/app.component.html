@@ -6,35 +6,41 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
+      <a  target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
         <h1>Costco Clearance </h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-              <li nz-menu-item nzMatchRouter >
-                <a routerLink="/login" > 
-                  Login</a>
-              </li>
-        <li nz-submenu  nzTitle="Dashboard" nzIcon="project">
-            <ul>
-              <li nz-menu-item nzMatchRouter>
-                <a routerLink="/dashboard" >Dashboard</a>
-              </li>
-            </ul>
+        
+        <li nz-menu-item nz-tooltip nzPlacement="right" routerLink="/dashboard" *ngIf="userStatus"
+        [nzTitle]="isCollapsed ? 'Dashboard' : ''" nzMatchRouter>
+            <i nz-icon nzType="project"></i>
+            <span>Dashboard</span>
           </li>
+  
+          <li nz-menu-item nz-tooltip nzPlacement="right"  *ngIf="!userStatus"
+          [nzTitle]="isCollapsed ? 'Login' : ''" nzMatchRouter (click)="goLogin()">
+              <i nz-icon nzType="lock" ></i>  
+              <span>Login</span>
+            </li>
+            <li nz-menu-item nz-tooltip nzPlacement="right" routerLink="/profile" *ngIf="userStatus"
+            [nzTitle]="isCollapsed ? 'Login' : ''" nzMatchRouter>
+                <i nz-icon nzType="profile"></i>
+                <span>Profile</span>
+              </li>
 
-        <li nz-submenu  nzTitle="Product List" nzIcon="dashboard">
-            <ul>
+        <li nz-submenu  nzTitle="Items List" nzIcon="dashboard"  *ngIf="userStatus">
+            <ul >
               <li nz-menu-item nzMatchRouter>
-                <a routerLink="/products">Products</a>
+                <a routerLink="/items/all">Items</a>
               </li>
               <li nz-menu-item nzMatchRouter>
-                <a routerLink="/approvals">Approvals</a>
+                <a routerLink="/items/approvals">Approvals</a>
               </li>
-              <li nz-menu-item nzMatchRouter>
+              <!-- <li nz-menu-item nzMatchRouter>
                 <a routerLink="/pending">Pending</a>
-              </li>
+              </li> -->
             </ul>
           </li>
         
